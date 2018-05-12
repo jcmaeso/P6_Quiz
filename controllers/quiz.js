@@ -112,7 +112,6 @@ exports.update = (req, res, next) => {
 
 // DELETE /quizzes/:quizId
 exports.destroy = (req, res, next) => {
-
     req.quiz.destroy()
     .then(() => {
         req.flash('success', 'Quiz deleted successfully.');
@@ -152,4 +151,34 @@ exports.check = (req, res, next) => {
         result,
         answer
     });
+};
+
+//GET /quizzes/randomplay
+exports.playrandom = (req, res, next) => {
+    const score = 0
+    models.quiz.findAll()
+    .then(quizzes => {
+        const quiz = quizzes.pop();
+        res.render('quizzes/random_play',{score,quiz});
+    })
+    
+};
+
+//GET /quizzes/randomcheck/:quizId?answer=respuesta
+exports.playresult = (req, res, next) => {
+    let answer = req.query.answer;
+    let score = 0;
+    let result = true;
+    res.render('quizzes/random_result',{
+        score,
+        answer,
+        result
+    })  
+};
+
+exports.playnomore = (req, res, next) => {
+    let score = 0;
+    res.render('quizzes/random_nomore',{
+        score
+    })  
 };
