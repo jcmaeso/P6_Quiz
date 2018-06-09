@@ -75,3 +75,40 @@ exports.destroy = (req, res, next) => {
     .catch(error => next(error));
 };
 
+exports.adminOrAuthorRequired = (req,res,next) =>{
+    console.log("Entrooooo");
+    if(!!req.session.user.isAdmin || (req.tip.authorId === req.session.id)){
+        next();
+    }else{
+        console.log("Acceso no Permitido");
+        res.send(403);
+    }
+}
+
+exports.edit = (req,res,next) =>{
+    res.render('tips/edit',{
+        quizId: req.quiz.id,
+        tip: req.tip});
+}
+
+exports.update = (req,res,next) =>{
+    const {tip} = req;
+    console.log("Entrooo");
+    tip.text = req.body.tip;
+    tip.accepted = false;
+    tip.save()
+    .then(tip => {
+        req.flash('success', 'Tip created successfully.');
+        res.redirect("back");
+    })
+    .catch(Sequelize.ValidationError, error => {
+        req.flash('error', 'There are errors in the form:');
+        error.errors.forEach(({message}) => req.flash('error', message));
+        res.redirect("back");
+    })
+    .catch(error => {
+        req.flash('error', 'Error creating the new tip: ' + error.message);
+        next(error);
+    });
+}
+

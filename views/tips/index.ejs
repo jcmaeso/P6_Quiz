@@ -25,7 +25,9 @@
                     <a href="/quizzes/<%= quizId %>/tips/<%= tip.id %>?_method=DELETE">
                         <button>Delete</button>
                     </a>
-
+                    <a href="/quizzes/<%= quizId %>/tips/<%=tip.id %>/edit">
+                        <button>Modify</button>
+                    </a>
                 <% } %>
                 by<%= tip.author ? tip.author.username: "Anonimo" %>
             </li>
