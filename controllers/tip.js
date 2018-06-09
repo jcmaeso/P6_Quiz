@@ -25,7 +25,7 @@ exports.create = (req, res, next) => {
         { 
             text: req.body.text,
             quizId: req.quiz.id,
-            authorId: req.session.user.id && req.session.id || 0
+            authorId: req.session.user.id || 0
         });
 
     tip.save()
@@ -77,7 +77,7 @@ exports.destroy = (req, res, next) => {
 
 exports.adminOrAuthorRequired = (req,res,next) =>{
     console.log("Entrooooo");
-    if(!!req.session.user.isAdmin || (req.tip.authorId === req.session.id)){
+    if(!!req.session.user.isAdmin || (req.tip.authorId === req.session.user.id)){
         next();
     }else{
         console.log("Acceso no Permitido");
