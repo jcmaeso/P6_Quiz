@@ -1,4 +1,5 @@
 <div>
+    <h1>Edita la pista</h1>
     <form method="post" action="/quizzes/<%= quizId %>/tips/<%=tip.id %>?_method=PUT" >
         <input type="text" name="tip" value="<%= tip.text %>" text="hola" />
         <input type="submit" value = "Save"/>
