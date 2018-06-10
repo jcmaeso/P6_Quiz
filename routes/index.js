@@ -6,6 +6,7 @@ const tipController = require('../controllers/tip');
 const userController = require('../controllers/user');
 const sessionController = require('../controllers/session');
 const commentController = require('../controllers/comment');
+const feedController = require('../controllers/feed');
 //-----------------------------------------------------------
 
 // autologout
@@ -141,7 +142,11 @@ router.get('/quizzes/:quizId(\\d)/tips/:tipId(\\d)/edit',sessionController.login
 router.put('/quizzes/:quizId(\\d)/tips/:tipId(\\d)',sessionController.loginRequired,tipController.adminOrAuthorRequired,tipController.update);
 
 router.post('/quizzes/:quizId(\\d)/comments',commentController.create);
-router.delete('/quizzes/:quizId(\\d)/comments/:commentId(\\d+)',commentController.delete);
-router.get('/quizzes/:quizId(\\d)/comments/:commentId(\\d+)/edit',commentController.edit);
-router.post('/quizzes/:quizId(\\d)/comments/:commentId(\\d+)/edit',commentController.update);
+router.delete('/quizzes/:quizId(\\d)/comments/:commentId(\\d+)',commentController.adminOrCreator,commentController.delete);
+router.get('/quizzes/:quizId(\\d)/comments/:commentId(\\d+)/edit',commentController.adminOrCreator,commentController.edit);
+router.post('/quizzes/:quizId(\\d)/comments/:commentId(\\d+)/edit',commentController.adminOrCreator,commentController.update);
+
+router.get('/feed/:userId',feedController.loadFollowers,feedController.index);
+
+
 module.exports = router;

@@ -41,7 +41,10 @@
         <% if (session.user) { %>
             <a href="/users">Users</a>
         <% } %>
-        <a href = "/quizzes/randomplay">play</a>
+        <a href = "/quizzes/randomplay">Play</a>
+        <% if(session.user) { %>
+            <a href = "/feed/<%=session.user.id%>">Feed</a>
+        <%}%>
     </nav>
 
     <section class="main" id="mainSection">

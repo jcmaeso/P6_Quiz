@@ -28,9 +28,12 @@ sequelize.import(path.join(__dirname,'session'));
 //Comment
 sequelize.import(path.join(__dirname,'comment'));
 
+//Follower
+sequelize.import(path.join(__dirname,'follower'));
+
 // Relation between models
 
-const {quiz, tip, user, comment} = sequelize.models;
+const {quiz, tip, user, comment, follower} = sequelize.models;
 
 tip.belongsTo(quiz);
 quiz.hasMany(tip);
@@ -47,5 +50,11 @@ comment.belongsTo(user,{as: 'author',foreignKey: 'authorId'});
 
 quiz.hasMany(comment, {as:'comments', foreignKey: 'quizId'});
 comment.belongsTo(user, {as:'quiz',foreignKey: 'quizId'});
+
+user.belongsToMany(follower, {through: 'seguidorT', as: 'seguidor', foreignKey:'followerId'});
+follower.belongsToMany(user, {through: 'seguidorT', as: 'seguidorB', foreignKey:'followerId'});
+
+user.belongsToMany(follower, {through: 'seguidoT',as: 'seguido', foreignKey:'userId'});
+follower.belongsToMany(user, {through: 'seguidoT',as: 'seguidoB', foreignKey:'userId'});
 
 module.exports = sequelize;

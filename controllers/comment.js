@@ -1,8 +1,17 @@
 const {models} = require("../models");
 const Sequelize = require("sequelize");
 
-exports.load = (req,res,next,commentId) => {
+exports.adminOrCreator = (req,res,next) =>{
+    admin =  req.session.user && !!req.session.user.isAdmin;
+    user = req.session.user && req.session.user.id === req.comment.authorId;
+    if(admin || user){
+        next();
+    }else{
+        res.sendStatus(403);
+    }
+};
 
+exports.load = (req,res,next,commentId) => {
     models.comment.findById(commentId).then(comment =>{
         if(comment){
             req.comment = comment;

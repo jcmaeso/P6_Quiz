@@ -1,12 +1,12 @@
 <form method="POST" action="/quizzes/<%= quiz.id %>/comments/<%= comment.id %>/edit">
 
-    <div class="wideRow">
+    <div>
 
         <span class="itemNarrow">Your Comment:</span>
 
-    <input type="text" class="itemWide" id="comment" name="commentText" value="<%= comment.text%>"  autocomplete="off" />
+    <input type="text"  id="comment" name="commentText" value="<%= comment.text%>"  autocomplete="off" />
 
-    <button type="submit" class="itemNarrow">Edit</button>
+    <button type="submit">Edit</button>
     </div>
 </form>
 <a href="/quizzes/<%= quiz.id %>">Go back</a>

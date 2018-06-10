@@ -1,0 +1,7 @@
+<h1>Feed de <%= user.username %></h1>
+<% if(followers){ %>
+<h3>Followers <%= followers.count %></h3>
+<% }else{ %>
+<h3>Followers 0</h3>
+<%}%>
+<a href="/goback"><button>Go back</button></a>
