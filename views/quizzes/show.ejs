@@ -27,5 +27,13 @@
 
 <% include ../tips/index %>
 
+<h1>
+    Comments
+</h1>
+<% var comments  = quiz.comments; %>
+<% include ../comments/index %>
+<% if (session.user) { %>
+    <% include ../comments/new %>
+<% } %>
 
 <a href="/goback"><button>Go back</button></a>

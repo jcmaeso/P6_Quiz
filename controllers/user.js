@@ -7,8 +7,8 @@ const paginate = require('../helpers/paginate').paginate;
 exports.load = (req, res, next, userId) => {
 
     models.user.findById(userId,{include:[
-        {model: models.quiz, as: testQuizz},
-        {model: models.tip, as: testTip}
+        {model: models.quiz},
+        {model: models.tip}
     ]})
     .then(user => {
         if (user) {

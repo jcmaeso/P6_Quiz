@@ -142,5 +142,6 @@ router.put('/quizzes/:quizId(\\d)/tips/:tipId(\\d)',sessionController.loginRequi
 
 router.post('/quizzes/:quizId(\\d)/comments',commentController.create);
 router.delete('/quizzes/:quizId(\\d)/comments/:commentId(\\d+)',commentController.delete);
-router.get('/quizzes/:quizId(\\d)/comments/:commentId(\\d)/edit',commentController.edit)
+router.get('/quizzes/:quizId(\\d)/comments/:commentId(\\d+)/edit',commentController.edit);
+router.post('/quizzes/:quizId(\\d)/comments/:commentId(\\d+)/edit',commentController.update);
 module.exports = router;
