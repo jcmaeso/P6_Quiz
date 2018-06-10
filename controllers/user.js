@@ -6,10 +6,14 @@ const paginate = require('../helpers/paginate').paginate;
 // Autoload the user with id equals to :userId
 exports.load = (req, res, next, userId) => {
 
-    models.user.findById(userId)
+    models.user.findById(userId,{include:[
+        {model: models.quiz, as: testQuizz},
+        {model: models.tip, as: testTip}
+    ]})
     .then(user => {
         if (user) {
             req.user = user;
+            console.log(req.user);
             next();
         } else {
             req.flash('error', 'There is no user with id=' + userId + '.');

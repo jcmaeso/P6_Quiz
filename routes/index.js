@@ -5,7 +5,7 @@ const quizController = require('../controllers/quiz');
 const tipController = require('../controllers/tip');
 const userController = require('../controllers/user');
 const sessionController = require('../controllers/session');
-
+const commentController = require('../controllers/comment');
 //-----------------------------------------------------------
 
 // autologout
@@ -58,6 +58,7 @@ router.get('/quizzes/random')
 router.param('quizId', quizController.load);
 router.param('userId', userController.load);
 router.param('tipId',  tipController.load);
+router.param('commentId',commentController.load);
 
 
 // Routes for the resource /session
@@ -139,5 +140,7 @@ router.delete('/quizzes/:quizId(\\d+)/tips/:tipId(\\d+)',
 router.get('/quizzes/:quizId(\\d)/tips/:tipId(\\d)/edit',sessionController.loginRequired,tipController.adminOrAuthorRequired,tipController.edit);
 router.put('/quizzes/:quizId(\\d)/tips/:tipId(\\d)',sessionController.loginRequired,tipController.adminOrAuthorRequired,tipController.update);
 
-
+router.post('/quizzes/:quizId(\\d)/comments',commentController.create);
+router.delete('/quizzes/:quizId(\\d)/comments/:commentId(\\d+)',commentController.delete);
+router.get('/quizzes/:quizId(\\d)/comments/:commentId(\\d)/edit',commentController.edit)
 module.exports = router;

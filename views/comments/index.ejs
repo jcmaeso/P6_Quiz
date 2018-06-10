@@ -1,0 +1,13 @@
+<ul>
+    <% for(var i in comments){ %>
+        <%var comment = comments[i] %>
+        <li>
+            <div>
+                <%= comment.author ? comment.author.username : "Nadie"%> dice:
+                <%= comment.text %>
+            </div>
+            <a href="/quizzes/<%= quizId %>/comments/<%= comment.id %>?_method=DELETE"><button>Delete Comment</button></a>
+            <a href="/quizzes/<%= quizId %>/comments/<%= comment.id %>/edit"><button>Edit Comment</button></a>
+        </li>
+    <%} %>
+<ul>
